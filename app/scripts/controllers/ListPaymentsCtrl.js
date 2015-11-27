@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('paymentsApp')
-  .controller('ListPaymentsCtrl', function ($http, $location) {
+  .controller('ListPaymentsCtrl', function ($http, $location, CONST) {
     
     var vm = this;
     
@@ -16,7 +16,7 @@ angular.module('paymentsApp')
         var pagos = result.data;
         
         angular.forEach(pagos, function(value, key) {
-          value.url = $location.host + '#payments/' + value.uid
+          value.url = CONST.HOST + '#payments/' + value.uid
         });
         
         vm.pagos = pagos;
