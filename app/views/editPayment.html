@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		
+		<h1>Editar pago</h1>
+		
+		<br>
+		
+		<div class="alert alert-info" role="alert" ng-show="vm.messageInfo != ''">{{vm.messageInfo}}</div>
+		<div class="alert alert-success" role="alert" ng-show="vm.messageSuccess != ''">{{vm.messageSuccess}}</div>
+		<div class="alert alert-danger" role="alert" ng-show="vm.messageError != ''">{{vm.messageError}}</div>
+		
+		<div ng-show="vm.url != ''">
+			Url del pago: <a href="{{vm.url}}" target="_blank">{{vm.url}}</a>
+		</div>
+		
+		<br>
+
+		<form>
+			
+			<div class="form-group">
+				<label for="nombre">Nombre del pago</label>
+				<input type="text" id="nombre" ng-model="vm.pago.nombre" class="form-control" placeholder="Escribe un nombre descriptivo para el pago">
+			</div>
+			
+			<div class="form-group">
+				<label for="cliente">Cliente</label>
+				<input type="text" id="cliente" ng-model="vm.pago.cliente" class="form-control" placeholder="Nombre del cliente">
+			</div>
+			
+			<div class="form-group">
+				<label for="descripcion">Descripción del pago</label>
+				<textarea class="form-control" ng-model="vm.pago.descripcion" id="descripcion" rows="3" placeholder="Concepto a facturar"></textarea>
+			</div>
+			
+			<div class="form-group">
+				<label for="importe">Importe</label>
+				<input type="text" id="importe" ng-model="vm.pago.importe" class="form-control" placeholder="Importe total en euros">
+			</div>
+
+
+			<button type="submit" class="btn btn-default" ng-click="vm.save()">Actualizar datos</button>
+		</form>
+
+
+	</div>
+</div>

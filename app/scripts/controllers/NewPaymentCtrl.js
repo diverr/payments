@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('paymentsApp')
-  .controller('NewPaymentCtrl', function ($http, CONST, $timeout, $location) {
+  .controller('NewPaymentCtrl', function (Payments, CONST, $timeout, $location) {
     
     var vm = this;
     
@@ -18,9 +18,9 @@ angular.module('paymentsApp')
     function save() {
       vm.messageInfo = 'Guardando........';
       
-      $http.post('/new', vm.pago)
+      Payments.add(vm.pago)
         .then(function(result) {
-          vm.url = CONST.HOST + '#payment/' + result.data;
+          vm.url = CONST.HOST + '#payment/' + result.uid;
           
           vm.messageInfo = '';
           vm.messageSuccess = 'Pago generado correctamente';

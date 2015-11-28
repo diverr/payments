@@ -12,6 +12,7 @@
     "ejs": "*",
     "express": "3.4.0",
     "moment": "^2.10.6",
+    "mongojs": "^1.4.1",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {

@@ -22,6 +22,12 @@
                 controllerAs: 'vm'
             })
             
+            .when('/edit/:id', {
+                templateUrl: 'views/editPayment.html',
+                controller: 'EditPaymentCtrl',
+                controllerAs: 'vm'
+            })
+            
             .otherwise({
                 redirectTo: '/'
             });

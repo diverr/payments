@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-md-10 col-md-offset-1">
 
 		<h1>Lista de pagos</h1>
 
@@ -16,15 +16,25 @@
 					<th>Fecha</th>
 					<th>Cliente</th>
 					<th>Pago</th>
-					<th>Url</th>
+					<th>Pagado</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="pago in vm.pagos">
-					<th>{{pago.fecha}}</th>
+					<td>{{pago.fecha}}</td>
 					<td>{{pago.cliente}}</td>
 					<td>{{pago.nombre}}</td>
-					<td><a href="{{pago.url}}" target="_blank">{{pago.url}}</a></td>
+					<td>
+						<span class="label label-success" ng-show="pago.pagado == 1">Si</span>
+						<span class="label label-danger" ng-show="pago.pagado != 1">No</span>
+					</td>
+					<td>
+						<a href="{{pago.url}}" target="_blank" class="btn btn-default">Ir al pago</a>
+						<a href="javascript:;" ng-click="vm.genButton()" class="btn btn-primary">Generar botón</a>
+						<a href="/#/edit/{{pago._id}}" class="btn btn-primary">Editar</a>
+						<a href="javascript:;" ng-click="vm.remove(pago)" class="btn btn-danger">Eliminar</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
