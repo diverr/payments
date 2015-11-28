@@ -86,4 +86,30 @@ module.exports = function (app) {
         });
         
     });
+    
+    app.get('/gotopayment/:uid', function(req, res, next) {
+        
+        db.payments.findOne({
+           uid: req.params.uid 
+        }, function(err, doc) {
+            if(err) return err;
+            
+            if(!doc) {
+                res.send("ERROR");
+                return;
+            }
+            
+            res.render('gotopayment', doc);    
+        });
+    });
+    
+    
+    app.post('/paypalnotify', function(req, res, next) {
+        var data = req.body;
+        
+        res.send("ok");
+        
+    });
+    
+    
 };

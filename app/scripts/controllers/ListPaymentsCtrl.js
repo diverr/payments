@@ -18,7 +18,7 @@ angular.module('paymentsApp')
         
         angular.forEach(pagos, function(value, key) {
           value.fecha = moment(value.fecha).format("LLL");
-          value.url = CONST.HOST + '#payments/' + value.uid
+          value.url = CONST.HOST + 'gotopayment/' + value.uid
         });
         
         vm.pagos = pagos;

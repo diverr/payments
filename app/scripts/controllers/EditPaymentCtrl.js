@@ -17,7 +17,7 @@ angular.module('paymentsApp')
       .then(function(result){
         console.log(result);
         vm.pago = result;
-        vm.url = CONST.HOST + '#payment/' + result.uid;
+        vm.url = CONST.HOST + 'gotopayment/' + result.uid;
       });
     
     
@@ -26,7 +26,7 @@ angular.module('paymentsApp')
       
       Payments.update(vm.pago)
         .then(function(result) {
-          vm.url = CONST.HOST + '#payment/' + result.url;
+          vm.url = CONST.HOST + 'gotopayment/' + result.url;
           
           vm.messageInfo = '';
           vm.messageSuccess = 'Datos almacenados correctamente';
