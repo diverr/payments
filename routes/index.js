@@ -3,14 +3,26 @@ var mongojs = require('mongojs');
 var uuid = require('node-uuid');
 var moment = require('moment');
 
-// Conection String
-var url = 'mongodb://localhost:27017/payments';
+var myConfig = require('../myConfig.js');
 
+// Conection String
+var url = myConfig.mongo_url;
 // Array de colecciones
 var collections = ['payments'];
-
 // Conexión a mongodb
 var db = mongojs(url, collections);
+
+
+// envio de emails a través de mandrill
+var nodemailer = require('nodemailer');
+var mandrillTransport = require('nodemailer-mandrill-transport');
+var transport = nodemailer.createTransport(mandrillTransport({
+  auth: {
+    apiKey: 'kqeKG7_qBDTZcGlrPGLAqA'
+  }
+}));
+
+
 
 module.exports = function (app) {
     app.get('/', function (req, res, next) {
@@ -99,7 +111,15 @@ module.exports = function (app) {
                 return;
             }
             
-            res.render('gotopayment', doc);    
+            var data = doc;
+            
+            data.paypal_email = myConfig.paypal_email;
+            data.paypal_url = myConfig.paypal_url;
+            data.paypal_notify = myConfig.paypal_notify;
+            data.paypal_ok = myConfig.paypal_ok;
+            data.paypal_ko = myConfig.paypal_ko;
+            
+            res.render('gotopayment', data);    
         });
     });
     
@@ -107,7 +127,48 @@ module.exports = function (app) {
     app.post('/paypalnotify', function(req, res, next) {
         var data = req.body;
         
-        res.send("ok");
+        db.payments.findOne({
+            _id: mongojs.ObjectId(data.custom)
+        }, function(err, doc) {
+            if (err) return err;
+            
+            if(!doc) {
+                res.send("ERROR");
+                return;
+            }
+            
+            db.payments.findAndModify({
+                query: {_id: mongojs.ObjectId(data.custom)},
+                update: {
+                    $set: {
+                        pagado: 1
+                    }
+                }
+                
+            }, function(err, saved) {
+                if (err) return err;
+                
+                
+                
+                transport.sendMail({
+                    from: 'soporte@piensaenweb.com',
+                    to: 'soporte@piensaenweb.com',
+                    subject: 'Paypal notification',
+                    html: JSON.stringify(data)
+                }, function(err, info) {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        console.log(info);
+                    }
+                });
+                
+                res.send("ok");
+                
+            });
+            
+            
+        });
         
     });
     
