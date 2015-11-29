@@ -62,10 +62,5 @@
         
     });
     
-    app.constant('CONST', {
-        
-        HOST: 'http://localhost:3000/'
-        
-    });
 
 }.call(this));
