@@ -20,7 +20,6 @@ angular.module('paymentsApp')
       
       Payments.add(vm.pago)
         .then(function(result) {
-          vm.url = CONST.HOST + 'gotopayment/' + result.uid;
           
           vm.messageInfo = '';
           vm.messageSuccess = 'Pago generado correctamente';

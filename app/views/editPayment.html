@@ -36,9 +36,14 @@
 				<label for="importe">Importe</label>
 				<input type="text" id="importe" ng-model="vm.pago.importe" class="form-control" placeholder="Importe total en euros">
 			</div>
+			
+			<div class="form-group" ng-show="vm.pago.pagado == 1">
+				<label for="fechapago">Fecha de pago</label>
+				<input type="text" id="fechapago" ng-model="vm.pago.fechapago" class="form-control" >
+			</div>
+			
 
-
-			<button type="submit" class="btn btn-default" ng-click="vm.save()">Actualizar datos</button>
+			<button type="submit" class="btn btn-default" ng-click="vm.save()" ng-disabled="vm.pago.pagado == 1">Actualizar datos</button>
 		</form>
 
 

@@ -18,6 +18,9 @@ angular.module('paymentsApp')
         console.log(result);
         vm.pago = result;
         vm.url = CONST.HOST + 'gotopayment/' + result.uid;
+        if(vm.pago.pagado == 1 && vm.pago.fechapago) {
+          vm.pago.fechapago = moment(vm.pago.fechapago).format("LLL");
+        }
       });
     
     

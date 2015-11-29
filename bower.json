@@ -10,7 +10,8 @@
     "angular-route": "latest",
     "json3": "~3.2.4",
     "es5-shim": "~2.0.8",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "ngstorage": "~0.3.10"
   },
   "devDependencies": {
     "angular-mocks": "latest",

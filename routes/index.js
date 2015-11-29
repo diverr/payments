@@ -8,7 +8,7 @@ var myConfig = require('../myConfig.js');
 // Conection String
 var url = myConfig.mongo_url;
 // Array de colecciones
-var collections = ['payments'];
+var collections = ['payments', 'users'];
 // Conexión a mongodb
 var db = mongojs(url, collections);
 
@@ -23,10 +23,61 @@ var transport = nodemailer.createTransport(mandrillTransport({
 }));
 
 
+function ensureAuthorized(req, res, next) {
+    var header = req.headers["authorization"];
+    if (typeof header !== 'undefined') {
+        var temp = header.split(" ");
+        var token = temp[1];
+        
+        db.users.findOne({token: token}, function(err, doc) {
+            if(err) return err;
+            
+            if(doc != null) {
+                next();
+                return;
+            }
+            
+            res.send(403);
+        })
+        
+        
+    } else {
+        res.send(403);
+    }
+}
+
 
 module.exports = function (app) {
+    
     app.get('/', function (req, res, next) {
-        res.render('index');
+        res.render('login');
+    });
+    
+    app.get('/login', function (req, res, next) {
+        res.render('login');
+    });
+    
+    app.post('/login', function(req, res, next) {
+        var data = req.body;
+        
+        db.users.findOne({
+            user: data.user,
+            password: data.password
+        }, function(err, doc) {
+            
+            if(err) return err;
+            
+            if(!doc) {
+                res.json({status: 0});
+                return;
+            }
+            
+            res.send({
+                status: 1,
+                data: doc
+            });
+            
+        });
     });
     
     app.get('/payment/:id', function(req, res, next) {
@@ -90,7 +141,7 @@ module.exports = function (app) {
         });
     });
     
-    app.get('/paymentsList', function(req, res, next) {
+    app.get('/paymentsList', ensureAuthorized, function(req, res, next) {
         
         // cogemos los pagos
         db.payments.find(function(err, docs) {
@@ -108,6 +159,11 @@ module.exports = function (app) {
             
             if(!doc) {
                 res.send("ERROR");
+                return;
+            }
+            
+            if(doc.pagado == 1) {
+                res.send("PAGO YA REALIZADO");
                 return;
             }
             
@@ -141,7 +197,8 @@ module.exports = function (app) {
                 query: {_id: mongojs.ObjectId(data.custom)},
                 update: {
                     $set: {
-                        pagado: 1
+                        pagado: 1,
+                        fechapago: moment().format()
                     }
                 }
                 
@@ -170,6 +227,16 @@ module.exports = function (app) {
             
         });
         
+    });
+    
+    
+    app.post('/paypalok', function(req, res, next) {
+        res.render('paypalok');
+    });
+    
+    
+    app.post('/paypalko', function(req, res, next) {
+        res.render('paypalko');
     });
     
     

@@ -2,12 +2,13 @@
 (function(){
 
 
-    var app = angular.module('paymentsApp', ['ngRoute']);
-    app.config(function ($routeProvider) {
+    var app = angular.module('paymentsApp', ['ngRoute', 'ngStorage']);
+    app.config(function ($routeProvider, $httpProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
+                templateUrl: 'views/ListPayments.html',
+                controller: 'ListPaymentsCtrl',
+                controllerAs: 'vm'
             })
             
             .when('/list', {
@@ -31,6 +32,34 @@
             .otherwise({
                 redirectTo: '/'
             });
+            
+            
+        $httpProvider.interceptors.push(function($q, $location, $localStorage) {
+            return {
+                
+                'request': function(config) {
+                    
+                    config.headers = config.headers || {};
+                    if($localStorage.token) {
+                        config.headers.Authorization = 'Piensaenweb ' + $localStorage.token;
+                    }
+                    
+                    return config;
+                    
+                },
+                
+                'responseError': function(response) {
+                    if(response.status === 401 || response.status === 403) {
+                        //$location.path('/login');
+                        window.location.href = '/login';
+                    }
+                    return $q.reject(response);
+                }
+                
+            }
+        });
+        
+        
     });
     
     app.constant('CONST', {
