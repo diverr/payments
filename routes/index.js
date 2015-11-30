@@ -80,7 +80,7 @@ module.exports = function (app) {
         });
     });
     
-    app.get('/payment/:id', function(req, res, next) {
+    app.get('/payment/:id', ensureAuthorized, function(req, res, next) {
         id = req.params.id;
         db.payments.findOne({
             _id: mongojs.ObjectId(id)
@@ -89,7 +89,7 @@ module.exports = function (app) {
         });
     });
     
-    app.post('/payment', function(req, res, next) {
+    app.post('/payment', ensureAuthorized, function(req, res, next) {
         
         var data = req.body;
         data.uid = uuid.v1();
@@ -103,7 +103,7 @@ module.exports = function (app) {
         });
     });
     
-    app.put('/payment', function(req, res, next) {
+    app.put('/payment', ensureAuthorized, function(req, res, next) {
         
         var data = req.body;
         
@@ -123,7 +123,7 @@ module.exports = function (app) {
         });
     });
     
-    app.delete('/payment/:id', function(req, res, next) {
+    app.delete('/payment/:id', ensureAuthorized, function(req, res, next) {
         
         var id = req.params.id;
         
