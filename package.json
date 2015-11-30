@@ -15,7 +15,8 @@
     "mongojs": "^1.4.1",
     "node-uuid": "^1.4.7",
     "nodemailer": "^1.10.0",
-    "nodemailer-mandrill-transport": "^1.0.0"
+    "nodemailer-mandrill-transport": "^1.0.0",
+    "pm2": "^0.15.10"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
