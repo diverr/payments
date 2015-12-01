@@ -1,0 +1,5 @@
+node_modules
+myConfig.js
+config/environments/index.js
+app/images
+app/styles/public.css
