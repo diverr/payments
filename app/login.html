@@ -91,11 +91,14 @@
           })
             .then(function(result) {
               
-              vm.islogin = false;
-              vm.loginBtnLabel = 'Entrar';
+              
               
               if(result.data.status == '0') {
                 vm.messageError = 'Datos incorrectos';
+                
+                vm.islogin = false;
+                vm.loginBtnLabel = 'Entrar';
+                
                 return;
               }
               
