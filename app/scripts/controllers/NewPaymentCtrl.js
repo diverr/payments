@@ -26,7 +26,7 @@ angular.module('paymentsApp')
           
           $timeout(function() {
             $location.path('/list');
-          }, 4000);
+          }, 1000);
           
         }, function(result) {
           // error

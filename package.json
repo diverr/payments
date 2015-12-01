@@ -16,7 +16,8 @@
     "node-uuid": "^1.4.7",
     "nodemailer": "^1.10.0",
     "nodemailer-mandrill-transport": "^1.0.0",
-    "pm2": "^0.15.10"
+    "pm2": "^0.15.10",
+    "stripe": "^4.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
