@@ -26,7 +26,7 @@
       <div class="col-md-12">
         <div style="text-align: center; margin-top: 40px;">
 
-          <p><img src="/images/logo.png" ></p>
+          <p><img src="/images/logo.png"></p>
 
           <br>
           <br>
@@ -39,7 +39,7 @@
             <br>
 
             <p>
-              
+
               <!--
               <form action="<%=paypal_url%>" method="post">
                 <input type="hidden" name="cmd" value="_xclick">
@@ -59,12 +59,20 @@
               -->
 
 
-              <form action="" method="POST">
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%=stripe_publish_apikey%>" data-amount="<%=importe * 100%>"
-                data-currency="eur" data-name="<%=my_name%>" data-description="<%=descripcion%>" data-image="<%=my_logo%>" data-locale="es">
+              
 
-                </script>
-              </form>
+
+
+
+              <script src="https://checkout.stripe.com/checkout.js"></script>
+
+              <button id="customButton" class="btn btn-default">Realizar el pago</button>
+
+              
+
+
+
+
 
             </p>
           </div>
@@ -89,6 +97,54 @@
   <!-- Libraries -->
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  
+  
+  <script>
+    var handler = StripeCheckout.configure({
+      key: '<%=stripe_publish_apikey%>',
+      image: '<%=my_logo%>',
+      locale: 'es',
+      token: function(token) {
+        console.log(token);
+        
+        $.ajax({
+          method: 'post',
+          url: '<%=post_url%>',
+          data: token
+        })
+          .done(function(data) {
+            
+            if(data.status != 1) {
+              location.href = '/payko';
+              return;
+            }
+            
+            location.href = '/payok';
+            return;
+            
+          });
+        
+        
+      }
+    });
+  
+    $('#customButton').on('click', function(e) {
+      // Open Checkout with further options
+      handler.open({
+        name: '<%=my_name%>',
+        description: '<%=descripcion%>',
+        currency: "eur",
+        amount: <%=importe * 100%>
+      });
+      e.preventDefault();
+    });
+  
+    // Close Checkout on page navigation
+    $(window).on('popstate', function() {
+      handler.close();
+    });
+
+  </script>
 
 
 </body>

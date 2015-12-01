@@ -178,6 +178,7 @@ module.exports = function (app) {
             data.stripe_publish_apikey = myConfig.stripe_publish_apikey;
             data.my_name = myConfig.my_name;
             data.my_logo = myConfig.my_logo;
+            data.post_url = '/gotopayment/' + req.params.uid;
 
             res.render('gotopayment', data);
         });
@@ -199,7 +200,7 @@ module.exports = function (app) {
             var stripe = require("stripe")(myConfig.stripe_secret_apikey);
 
             // Get the credit card details submitted by the form
-            var stripeToken = req.body.stripeToken;
+            var stripeToken = req.body.id;
     
             var charge = stripe.charges.create({
                 amount: doc.importe * 100, // amount in cents, again
@@ -258,7 +259,7 @@ module.exports = function (app) {
                 
                 
                 
-                res.render('payok');
+                res.json({status: 1});
                 
                 
                 
@@ -332,8 +333,18 @@ module.exports = function (app) {
     });
 
 
-    app.post('/paypalko', function (req, res, next) {
+    app.get('/paypalko', function (req, res, next) {
         res.render('paypalko');
+    });
+    
+    
+    app.get('/payok', function (req, res, next) {
+        res.render('payok');
+    });
+
+
+    app.get('/payko', function (req, res, next) {
+        res.render('payko');
     });
 
 
