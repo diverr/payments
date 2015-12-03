@@ -2,3 +2,4 @@ node_modules
 myConfig.js
 app/images
 app/styles/public.css
+dist/*
