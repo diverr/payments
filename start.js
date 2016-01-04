@@ -5,6 +5,7 @@ pm2.connect(function() {
     script    : '/usr/bin/grunt',         // Script to be run
     args: 'server --force',
   }, function(err, apps) {
-    pm2.disconnect();
+     console.log(err);
+     pm2.disconnect();
   });
 });

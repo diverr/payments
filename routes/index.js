@@ -203,7 +203,7 @@ module.exports = function (app) {
             var stripeToken = req.body.id;
     
             var charge = stripe.charges.create({
-                amount: doc.importe * 100, // amount in cents, again
+                amount: parseInt(doc.importe * 100), // amount in cents, again
                 currency: "eur",
                 source: stripeToken,
                 description: doc.descripcion
