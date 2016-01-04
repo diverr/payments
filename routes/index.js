@@ -208,8 +208,8 @@ module.exports = function (app) {
                 source: stripeToken,
                 description: doc.descripcion
             }, function (err, charge) {
-                if (err && err.type === 'StripeCardError') {
-                    // The card has been declined
+                
+                if (err) {
                     res.render('payko');
                     return;
                 }
