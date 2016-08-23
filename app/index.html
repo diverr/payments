@@ -59,13 +59,11 @@
   <!-- Add your site or application content here -->
   <div class="container" ng-view=""></div>
 
-  <!-- Libraries -->
+  <!-- build:js scripts/modules.js -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/moment/min/moment.min.js"></script>
   <script src="bower_components/moment/locale/es.js"></script>
-  
-  <!-- build:js scripts/modules.js -->
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -84,11 +82,11 @@
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/myConfig.js"></script>
-  <!-- endbuild -->
   <script src="scripts/services/Payments.js"></script>
   <script src="scripts/controllers/NewPaymentCtrl.js"></script>
   <script src="scripts/controllers/ListPaymentsCtrl.js"></script>
   <script src="scripts/controllers/EditPaymentCtrl.js"></script>
+  <!-- endbuild -->
 
 </body>
 

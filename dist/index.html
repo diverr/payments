@@ -1,31 +1,73 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="styles/f3b12f69.main.css">
-  </head>
-  <body ng-app="paymentsApp">
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
 
-    <!-- Libraries -->
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    
-    <script src="scripts/0cb559cc.modules.js"></script>
-    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    
-    <script src="scripts/4206626f.scripts.js"></script>
-    <script src="scripts/controllers/NewPaymentCtrl.js"></script>
-    
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="styles/f3b12f69.main.css">
+</head>
+
+<body ng-app="paymentsApp">
+
+
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">PAGOS</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        
+        
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/#/list">Lista de pagos</a></li>
+          <li><a href="/#/new">Nuevo pago</a></li>
+          <li><a href="/login">Salir</a></li>
+        </ul>
+        
+        
+        
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+
+
+
+
+  <!-- Add your site or application content here -->
+  <div class="container" ng-view=""></div>
+
+  <script src="scripts/4d1125f2.modules.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script>
+  $(".nav a").on("click", function () {
+    $(".nav").find(".active").removeClass("active");
+    $(this).parent().addClass("active");
+  });
+  </script>
+
+  <script src="scripts/507b2a84.scripts.js"></script>
+
+</body>
+
 </html>
